@@ -58,11 +58,16 @@ export function ContactSection({ contact }: ContactSectionProps) {
       setMessage('');
       formRenderedAtRef.current = Date.now();
     } catch (err) {
-      setErrorMsg(
-        err instanceof Error
-          ? err.message
-          : 'Unable to send message right now. Please try again.'
-      );
+      const raw = err instanceof Error ? err.message : '';
+      if (raw.includes('404') || raw.includes('Failed to initialize')) {
+        setErrorMsg(
+          `Direct form delivery requires the backend server. Please email ${contact.email} directly or connect via Fiverr.`
+        );
+      } else {
+        setErrorMsg(
+          raw || 'Unable to send message right now. Please try again.'
+        );
+      }
     } finally {
       setSubmitting(false);
     }

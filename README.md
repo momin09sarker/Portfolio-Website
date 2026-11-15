@@ -55,3 +55,9 @@ Set `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM`, and `CONTAC
 1. Provision a PostgreSQL database on Neon or Supabase and run `db/schema.postgres.sql`.
 2. Replace `src/server/db.ts` queries with `pg` (`Pool` using `process.env.DATABASE_URL`) and store uploaded images in S3/Cloudinary/Supabase Storage instead of local disk (`uploads/`).
 3. Configure `JWT_SECRET` and `DATABASE_URL` in Vercel Project Environment Variables.
+
+### Option C: GitHub Pages (Static Frontend Only)
+1. `vite.config.ts` uses `base: './'` for production builds so assets load cleanly under `https://<username>.github.io/<repo-name>/`.
+2. Enable **Settings → Pages → Source: GitHub Actions** in your repository; the included `.github/workflows/deploy.yml` builds `dist/`, creates `404.html`, and deploys automatically on push to `main`.
+3. Note: GitHub Pages serves static files only; dynamic `/admin` editing, SQLite storage, and server-side contact delivery require running the Express backend (Option A or B).
+

@@ -51,10 +51,15 @@ async function apiFetch<T>(url: string, options: RequestInit = {}): Promise<T> {
   }
 
   const contentType = res.headers.get('content-type') || '';
-  const payload = contentType.includes('application/json') ? await res.json() : null;
+  const isJson = contentType.includes('application/json');
+  const payload = isJson ? await res.json() : null;
 
   if (!res.ok) {
     throw new Error(payload?.error || `Request failed (${res.status})`);
+  }
+
+  if (!isJson || payload === null) {
+    throw new Error('Expected JSON response from API.');
   }
 
   if (payload?.csrfToken) {

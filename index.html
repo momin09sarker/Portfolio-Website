@@ -34,6 +34,110 @@
       href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              display: ['"Bricolage Grotesque"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+              sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+              mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      :root {
+        --bg-dark: #121212;
+        --bg-dark-elevated: #161618;
+        --bg-light: #f4f2ed;
+        --bg-light-card: #eae7df;
+        --accent: #e85d26;
+        --accent-hover: #f26e38;
+      }
+
+      html {
+        font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+        background-color: #121212;
+        color: #f4f2ed;
+        scroll-behavior: smooth;
+      }
+
+      h1, h2, h3, h4, .font-display {
+        font-family: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+      }
+
+      .font-mono {
+        font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+      }
+
+      .tabular-nums {
+        font-variant-numeric: tabular-nums;
+      }
+
+      :focus-visible {
+        outline: 2px solid #e85d26;
+        outline-offset: 3px;
+      }
+
+      .text-balance {
+        text-wrap: balance;
+      }
+
+      .line-clamp-3 {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      /* Subtle horizontal rail scrollbar */
+      .project-rail::-webkit-scrollbar {
+        height: 6px;
+      }
+      .project-rail::-webkit-scrollbar-track {
+        background: rgba(18, 18, 18, 0.08);
+      }
+      .project-rail::-webkit-scrollbar-thumb {
+        background: rgba(18, 18, 18, 0.3);
+      }
+
+      /* Nav underline hover */
+      .nav-link {
+        position: relative;
+      }
+      .nav-link::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0;
+        height: 1px;
+        background-color: #e85d26;
+        transition: width 200ms ease;
+      }
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      /* Smooth reveal helper (never hides elements before JS or if observer doesn't fire) */
+      .reveal-ready {
+        transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1), opacity 600ms ease;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -58,8 +162,2036 @@
       }
     </script>
   </head>
-  <body class="bg-[#121212] text-[#F4F2ED] antialiased selection:bg-[#E85D26] selection:text-[#121212]">
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+  <body class="min-h-screen bg-[#121212] text-[#F4F2ED] antialiased selection:bg-[#E85D26] selection:text-[#121212]">
+    <!-- Subtle Desktop Cursor Follower -->
+    <div
+      id="cursor-ring"
+      aria-hidden="true"
+      class="pointer-events-none fixed left-0 top-0 z-50 hidden h-6 w-6 rounded-full border border-[#E85D26]/80 transition-opacity duration-200"
+      style="will-change: transform"
+    ></div>
+
+    <div id="top" class="min-h-screen bg-[#121212] text-[#F4F2ED]">
+      <!-- Sticky Navigation -->
+      <header class="sticky top-0 z-40 border-b border-[#F4F2ED]/10 bg-[#121212]/95">
+        <div class="mx-auto flex max-w-[1200px] items-center justify-between gap-8 px-6 py-4">
+          <a
+            href="#top"
+            data-scroll-target="top"
+            class="font-display text-lg font-bold tracking-tight text-[#F4F2ED] whitespace-nowrap shrink-0"
+          >
+            Abdul Momin
+          </a>
+
+          <nav
+            aria-label="Primary navigation"
+            class="hidden md:flex items-center gap-7 text-sm font-medium text-[#F4F2ED]/75"
+          >
+            <a href="#about" data-scroll-target="about" class="nav-link py-1 transition-colors duration-150 hover:text-[#F4F2ED] whitespace-nowrap shrink-0">About</a>
+            <a href="#skills" data-scroll-target="skills" class="nav-link py-1 transition-colors duration-150 hover:text-[#F4F2ED] whitespace-nowrap shrink-0">Skills</a>
+            <a href="#services" data-scroll-target="services" class="nav-link py-1 transition-colors duration-150 hover:text-[#F4F2ED] whitespace-nowrap shrink-0">Services</a>
+            <a href="#projects" data-scroll-target="projects" class="nav-link py-1 transition-colors duration-150 hover:text-[#F4F2ED] whitespace-nowrap shrink-0">Projects</a>
+            <a href="#credentials" data-scroll-target="credentials" class="nav-link py-1 transition-colors duration-150 hover:text-[#F4F2ED] whitespace-nowrap shrink-0">Credentials</a>
+          </nav>
+
+          <div class="flex items-center gap-3 shrink-0">
+            <button
+              type="button"
+              data-scroll-target="contact"
+              class="hidden sm:inline-flex items-center justify-center bg-[#E85D26] px-4 py-2 text-xs font-semibold tracking-wide text-[#121212] transition-colors duration-150 hover:bg-[#F26E38] whitespace-nowrap shrink-0 cursor-pointer"
+            >
+              Get in Touch
+            </button>
+
+            <button
+              id="mobile-menu-toggle"
+              type="button"
+              aria-expanded="false"
+              aria-label="Open navigation menu"
+              class="inline-flex h-11 w-11 items-center justify-center border border-[#F4F2ED]/15 text-[#F4F2ED] md:hidden cursor-pointer"
+            >
+              <svg id="icon-menu" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="4" y1="7" x2="20" y2="7"></line>
+                <line x1="4" y1="12" x2="20" y2="12"></line>
+                <line x1="4" y1="17" x2="20" y2="17"></line>
+              </svg>
+              <svg id="icon-close" class="hidden h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden border-t border-[#F4F2ED]/10 bg-[#121212] px-6 py-4 md:hidden">
+          <nav aria-label="Mobile navigation" class="flex flex-col gap-1">
+            <a href="#about" data-scroll-target="about" class="flex min-h-[44px] items-center border-b border-[#F4F2ED]/10 text-base font-medium text-[#F4F2ED]/90 hover:text-[#E85D26]">About</a>
+            <a href="#skills" data-scroll-target="skills" class="flex min-h-[44px] items-center border-b border-[#F4F2ED]/10 text-base font-medium text-[#F4F2ED]/90 hover:text-[#E85D26]">Skills</a>
+            <a href="#services" data-scroll-target="services" class="flex min-h-[44px] items-center border-b border-[#F4F2ED]/10 text-base font-medium text-[#F4F2ED]/90 hover:text-[#E85D26]">Services</a>
+            <a href="#projects" data-scroll-target="projects" class="flex min-h-[44px] items-center border-b border-[#F4F2ED]/10 text-base font-medium text-[#F4F2ED]/90 hover:text-[#E85D26]">Projects</a>
+            <a href="#credentials" data-scroll-target="credentials" class="flex min-h-[44px] items-center border-b border-[#F4F2ED]/10 text-base font-medium text-[#F4F2ED]/90 hover:text-[#E85D26]">Credentials</a>
+            <button
+              type="button"
+              data-scroll-target="contact"
+              class="mt-3 flex min-h-[44px] w-full items-center justify-center bg-[#E85D26] px-4 py-2.5 text-sm font-semibold text-[#121212] cursor-pointer"
+            >
+              Get in Touch
+            </button>
+          </nav>
+        </div>
+      </header>
+
+      <main>
+        <!-- 1. HERO SECTION -->
+        <section class="relative overflow-hidden bg-[#121212] pt-12 pb-16 sm:pt-16 lg:pt-20 lg:pb-24">
+          <div class="mx-auto max-w-[1200px] px-6">
+            <div class="grid items-stretch gap-10 lg:grid-cols-12 lg:gap-12">
+              <div class="flex flex-col justify-between gap-8 py-2 lg:col-span-6">
+                <div class="space-y-6">
+                  <p id="hero-name" class="font-mono text-xs font-medium tracking-[0.14em] text-[#E85D26]">
+                    MD ABDUL MOMIN SARKER
+                  </p>
+
+                  <h1 class="font-display text-4xl font-bold leading-[1.04] tracking-tight text-[#F4F2ED] sm:text-5xl lg:text-[3.65rem] text-balance">
+                    <span id="hero-title-line-1" class="block">Digital Marketing</span>
+                    <span id="hero-title-line-2" class="block text-[#F4F2ED]/85">&amp; Automation Specialist</span>
+                  </h1>
+
+                  <p id="hero-value-statement" class="max-w-xl text-base leading-relaxed text-[#F4F2ED]/75 sm:text-lg">
+                    Building n8n automation workflows, Meta advertising systems, and clean visual identities that save hours every week.
+                  </p>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-4 pt-2">
+                  <button
+                    type="button"
+                    data-scroll-target="projects"
+                    id="hero-primary-cta"
+                    class="inline-flex min-h-[44px] items-center gap-2 bg-[#E85D26] px-6 py-3 text-sm font-semibold text-[#121212] transition-colors duration-150 hover:bg-[#F26E38] cursor-pointer whitespace-nowrap shrink-0"
+                  >
+                    <span>View Work</span>
+                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </button>
+
+                  <button
+                    type="button"
+                    data-scroll-target="contact"
+                    id="hero-secondary-cta"
+                    class="inline-flex min-h-[44px] items-center gap-2 border border-[#F4F2ED]/25 bg-transparent px-6 py-3 text-sm font-semibold text-[#F4F2ED] transition-colors duration-150 hover:border-[#F4F2ED] cursor-pointer whitespace-nowrap shrink-0"
+                  >
+                    <span>Get in Touch</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Interactive 3D Workflow Scene Container (Canvas + SVG Fallback) -->
+              <div class="h-[340px] sm:h-[420px] lg:col-span-6 lg:h-full lg:min-h-[460px]">
+                <div
+                  id="workflow-scene-wrapper"
+                  aria-label="Interactive 3D automation workflow visualization"
+                  class="relative flex h-full w-full items-center justify-center overflow-hidden border border-[#F4F2ED]/10 bg-[#141416]"
+                >
+                  <canvas id="workflow-canvas" class="block h-full w-full"></canvas>
+
+                  <!-- Lightweight SVG Fallback for Mobile & Reduced Motion -->
+                  <div
+                    id="workflow-svg-fallback"
+                    aria-hidden="true"
+                    class="hidden h-full w-full items-center justify-center bg-[#171719] p-6"
+                  >
+                    <svg viewBox="0 0 480 380" class="h-full w-full max-w-[460px]" fill="none">
+                      <path
+                        d="M70 190 C 140 190, 150 95, 235 95 C 310 95, 330 155, 410 155"
+                        stroke="#E85D26"
+                        stroke-opacity="0.7"
+                        stroke-width="1.5"
+                      />
+                      <path
+                        d="M70 190 C 150 190, 160 285, 245 285 C 320 285, 340 225, 410 225"
+                        stroke="#F4F2ED"
+                        stroke-opacity="0.32"
+                        stroke-width="1.5"
+                      />
+                      <path
+                        d="M235 95 C 275 95, 265 285, 245 285"
+                        stroke="#E85D26"
+                        stroke-opacity="0.4"
+                        stroke-dasharray="4 4"
+                        stroke-width="1.25"
+                      />
+                      <circle cx="70" cy="190" r="25" stroke="#E85D26" stroke-opacity="0.3" stroke-width="1" />
+                      <circle cx="70" cy="190" r="18" fill="#1E1E22" stroke="#E85D26" stroke-width="1.5" />
+                      <circle cx="70" cy="190" r="4" fill="#E85D26" />
+
+                      <circle cx="235" cy="95" r="23" stroke="#F4F2ED" stroke-opacity="0.3" stroke-width="1" />
+                      <circle cx="235" cy="95" r="16" fill="#1E1E22" stroke="#F4F2ED" stroke-opacity="0.5" stroke-width="1.5" />
+                      <circle cx="235" cy="95" r="4" fill="#F4F2ED" />
+
+                      <circle cx="245" cy="285" r="23" stroke="#F4F2ED" stroke-opacity="0.3" stroke-width="1" />
+                      <circle cx="245" cy="285" r="16" fill="#1E1E22" stroke="#F4F2ED" stroke-opacity="0.5" stroke-width="1.5" />
+                      <circle cx="245" cy="285" r="4" fill="#F4F2ED" />
+
+                      <circle cx="410" cy="155" r="21" stroke="#E85D26" stroke-opacity="0.3" stroke-width="1" />
+                      <circle cx="410" cy="155" r="14" fill="#1E1E22" stroke="#E85D26" stroke-width="1.5" />
+                      <circle cx="410" cy="155" r="4" fill="#E85D26" />
+
+                      <circle cx="410" cy="225" r="21" stroke="#F4F2ED" stroke-opacity="0.3" stroke-width="1" />
+                      <circle cx="410" cy="225" r="14" fill="#1E1E22" stroke="#F4F2ED" stroke-opacity="0.5" stroke-width="1.5" />
+                      <circle cx="410" cy="225" r="4" fill="#F4F2ED" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4-Column Metric Strip below Hero Split -->
+            <div id="hero-metrics" class="mt-14 grid grid-cols-2 gap-6 border-t border-[#F4F2ED]/10 pt-8 md:grid-cols-4">
+              <div class="space-y-1">
+                <div class="text-xs text-[#F4F2ED]/50">Freelance Practice</div>
+                <div class="font-display text-lg font-semibold tracking-tight text-[#F4F2ED] tabular-nums sm:text-xl">1+ Year</div>
+              </div>
+              <div class="space-y-1">
+                <div class="text-xs text-[#F4F2ED]/50">Core Automation</div>
+                <div class="font-display text-lg font-semibold tracking-tight text-[#F4F2ED] tabular-nums sm:text-xl">n8n &amp; Webhooks</div>
+              </div>
+              <div class="space-y-1">
+                <div class="text-xs text-[#F4F2ED]/50">Paid Acquisition</div>
+                <div class="font-display text-lg font-semibold tracking-tight text-[#F4F2ED] tabular-nums sm:text-xl">Facebook &amp; IG Ads</div>
+              </div>
+              <div class="space-y-1">
+                <div class="text-xs text-[#F4F2ED]/50">Based In</div>
+                <div class="font-display text-lg font-semibold tracking-tight text-[#F4F2ED] tabular-nums sm:text-xl">Gaibandha, BD</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. ABOUT SECTION (Off-White Editorial Contrast) -->
+        <section id="about" class="bg-[#F4F2ED] py-24 text-[#121212]">
+          <div class="mx-auto max-w-[1200px] px-6">
+            <div data-reveal class="grid items-stretch gap-12 lg:grid-cols-12 lg:gap-16">
+              <div class="lg:col-span-5">
+                <div class="relative aspect-[3/4] w-full overflow-hidden border border-[#121212]/15 bg-[#18181B] lg:h-full">
+                  <img
+                    id="about-portrait"
+                    src="./images/profile.jpg"
+                    alt="Portrait of MD Abdul Momin Sarker"
+                    referrerpolicy="no-referrer"
+                    class="h-full w-full object-cover"
+                  />
+                  <div
+                    id="about-portrait-fallback"
+                    class="hidden h-full w-full flex-col items-center justify-center gap-3 text-[#F4F2ED]/60"
+                  >
+                    <svg class="h-10 w-10 text-[#E85D26]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span class="text-xs font-medium">MD Abdul Momin Sarker</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex flex-col justify-between gap-8 lg:col-span-7">
+                <div class="space-y-6">
+                  <div class="flex flex-wrap items-center gap-3 text-sm font-medium text-[#E85D26]">
+                    <span>About</span>
+                    <span aria-hidden="true" class="text-[#121212]/30">/</span>
+                    <span class="inline-flex items-center gap-1.5 text-[#121212]/70">
+                      <svg class="h-3.5 w-3.5 text-[#E85D26]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                      </svg>
+                      <span id="about-location">Gaibandha, Bangladesh</span>
+                    </span>
+                  </div>
+
+                  <h2 id="about-headline" class="font-display text-3xl font-bold leading-tight tracking-tight text-[#121212] sm:text-4xl text-balance">
+                    Eliminating repetitive manual work while sharpening brand presence.
+                  </h2>
+
+                  <p id="about-summary" class="max-w-2xl text-base leading-relaxed text-[#121212]/80 sm:text-lg">
+                    With over a year of hands-on freelance experience, I partner with businesses and founders to connect scattered tools using n8n workflow automation, run structured Facebook and Instagram ad campaigns, and craft cohesive visual assets rooted in formal graphic design training.
+                  </p>
+
+                  <p id="about-extended" class="max-w-2xl text-base leading-relaxed text-[#121212]/70">
+                    Operating from Gaibandha, Bangladesh, I bridge technical workflow logic with performance marketing and clean visual design—ensuring your lead capture, reporting, and creative pipelines run reliably without manual bottlenecks.
+                  </p>
+                </div>
+
+                <div class="grid gap-6 border-t border-[#121212]/15 pt-8 sm:grid-cols-2">
+                  <div>
+                    <div class="text-xs font-medium text-[#121212]/55">Experience</div>
+                    <div id="about-exp-years" class="mt-1 font-display text-lg font-bold text-[#121212]">
+                      1 Year Freelance Experience
+                    </div>
+                  </div>
+                  <div>
+                    <div class="text-xs font-medium text-[#121212]/55">Focus Areas</div>
+                    <div class="mt-1 font-display text-lg font-bold text-[#121212]">
+                      n8n Automation · Meta Ads · Graphic Design
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. SKILLS SECTION -->
+        <section id="skills" class="border-t border-[#F4F2ED]/10 bg-[#121212] py-24 text-[#F4F2ED]">
+          <div class="mx-auto max-w-[1200px] px-6">
+            <div data-reveal class="mb-14 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+              <div class="space-y-3">
+                <p class="text-sm font-medium text-[#E85D26]">Capabilities &amp; Skills</p>
+                <h2 class="font-display text-3xl font-bold tracking-tight text-[#F4F2ED] sm:text-4xl text-balance">
+                  Technical automation meets performance marketing and craft.
+                </h2>
+              </div>
+              <p class="max-w-md text-sm leading-relaxed text-[#F4F2ED]/65">
+                A balanced skill set built across workflow orchestration, paid social execution, and certified design fundamentals.
+              </p>
+            </div>
+
+            <div id="skills-grid" data-reveal class="grid gap-6 md:grid-cols-2"></div>
+          </div>
+        </section>
+
+        <!-- 4. SERVICES SECTION -->
+        <section id="services" class="border-t border-[#F4F2ED]/10 bg-[#161618] py-24 text-[#F4F2ED]">
+          <div class="mx-auto max-w-[1200px] px-6">
+            <div data-reveal class="mb-14 space-y-3">
+              <p class="text-sm font-medium text-[#E85D26]">Services</p>
+              <h2 class="font-display text-3xl font-bold tracking-tight text-[#F4F2ED] sm:text-4xl text-balance">
+                Structured systems designed to reduce friction and grow reach.
+              </h2>
+            </div>
+
+            <div id="services-grid" data-reveal class="grid gap-6 md:grid-cols-2"></div>
+          </div>
+        </section>
+
+        <!-- 5. PROJECTS SHOWCASE (Off-White Surface + Category Filter + Horizontal Scroll) -->
+        <section id="projects" class="bg-[#F4F2ED] py-24 text-[#121212]">
+          <div class="mx-auto max-w-[1200px] px-6">
+            <div
+              data-reveal
+              class="mb-10 flex flex-col justify-between gap-6 border-b border-[#121212]/15 pb-8 lg:flex-row lg:items-end"
+            >
+              <div class="space-y-3">
+                <p class="text-sm font-medium text-[#E85D26]">Selected Work</p>
+                <h2 class="font-display text-3xl font-bold tracking-tight text-[#121212] sm:text-4xl text-balance">
+                  Automation builds, ad systems, and visual design projects.
+                </h2>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-3">
+                <div
+                  id="project-filter-tabs"
+                  role="tablist"
+                  aria-label="Filter projects by category"
+                  class="inline-flex items-center gap-1 border border-[#121212]/15 bg-[#EAE7DF] p-1"
+                ></div>
+
+                <div id="project-rail-controls" class="hidden items-center gap-1.5 sm:flex">
+                  <button
+                    id="rail-prev"
+                    type="button"
+                    aria-label="Scroll projects left"
+                    class="inline-flex h-10 w-10 items-center justify-center border border-[#121212]/20 text-[#121212] transition-colors hover:border-[#121212] cursor-pointer"
+                  >
+                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <line x1="19" y1="12" x2="5" y2="12"></line>
+                      <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                  </button>
+                  <button
+                    id="rail-next"
+                    type="button"
+                    aria-label="Scroll projects right"
+                    class="inline-flex h-10 w-10 items-center justify-center border border-[#121212]/20 text-[#121212] transition-colors hover:border-[#121212] cursor-pointer"
+                  >
+                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div id="projects-container"></div>
+          </div>
+        </section>
+
+        <!-- 6, 7, 8. EXPERIENCE, EDUCATION, CERTIFICATIONS & LANGUAGES -->
+        <section
+          id="credentials"
+          class="border-t border-[#F4F2ED]/10 bg-[#121212] py-24 text-[#F4F2ED]"
+        >
+          <div class="mx-auto max-w-[1200px] px-6">
+            <div data-reveal class="mb-14 space-y-3">
+              <p class="text-sm font-medium text-[#E85D26]">Background &amp; Credentials</p>
+              <h2 class="font-display text-3xl font-bold tracking-tight text-[#F4F2ED] sm:text-4xl text-balance">
+                Experience, education, certifications, and languages.
+              </h2>
+            </div>
+
+            <div data-reveal class="grid gap-12 lg:grid-cols-12 lg:gap-16">
+              <!-- Left Column: Experience & Education -->
+              <div class="space-y-12 lg:col-span-7">
+                <div class="space-y-6">
+                  <h3 class="border-b border-[#F4F2ED]/10 pb-3 text-sm font-semibold tracking-wide text-[#F4F2ED]/60">
+                    Experience
+                  </h3>
+                  <div id="experience-list" class="space-y-6"></div>
+                </div>
+
+                <div class="space-y-6">
+                  <h3 class="border-b border-[#F4F2ED]/10 pb-3 text-sm font-semibold tracking-wide text-[#F4F2ED]/60">
+                    Education
+                  </h3>
+                  <div id="education-list" class="space-y-5"></div>
+                </div>
+              </div>
+
+              <!-- Right Column: Certifications & Languages -->
+              <div class="space-y-12 lg:col-span-5">
+                <div class="space-y-5">
+                  <h3 class="border-b border-[#F4F2ED]/10 pb-3 text-sm font-semibold tracking-wide text-[#F4F2ED]/60">
+                    Certifications
+                  </h3>
+                  <ul id="certifications-list" class="divide-y divide-[#F4F2ED]/10"></ul>
+                </div>
+
+                <div class="space-y-5">
+                  <h3 class="border-b border-[#F4F2ED]/10 pb-3 text-sm font-semibold tracking-wide text-[#F4F2ED]/60">
+                    Languages
+                  </h3>
+                  <div id="languages-grid" class="grid grid-cols-2 gap-4"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 9. CONTACT SECTION -->
+        <section
+          id="contact"
+          class="border-t border-[#F4F2ED]/10 bg-[#161618] py-24 text-[#F4F2ED]"
+        >
+          <div class="mx-auto max-w-[1200px] px-6">
+            <div data-reveal class="grid gap-12 lg:grid-cols-12 lg:gap-16">
+              <div class="space-y-8 lg:col-span-5">
+                <div class="space-y-4">
+                  <p class="text-sm font-medium text-[#E85D26]">Get in Touch</p>
+                  <h2 class="font-display text-3xl font-bold tracking-tight text-[#F4F2ED] sm:text-4xl text-balance">
+                    Let us automate workflows or launch your next campaign.
+                  </h2>
+                  <p id="contact-availability" class="text-base leading-relaxed text-[#F4F2ED]/75">
+                    Available for freelance projects and ongoing automation retainers.
+                  </p>
+                </div>
+
+                <div class="space-y-4 border-t border-[#F4F2ED]/10 pt-6 text-sm">
+                  <div class="flex items-start gap-3">
+                    <svg class="mt-0.5 h-4 w-4 shrink-0 text-[#E85D26]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                    </svg>
+                    <div>
+                      <div class="text-xs text-[#F4F2ED]/50">Email</div>
+                      <a
+                        id="contact-email-link"
+                        href="mailto:momin09sarker@gmail.com"
+                        class="font-medium text-[#F4F2ED] transition-colors hover:text-[#E85D26]"
+                      >
+                        momin09sarker@gmail.com
+                      </a>
+                    </div>
+                  </div>
+
+                  <div id="contact-phone-row" class="hidden items-start gap-3">
+                    <svg class="mt-0.5 h-4 w-4 shrink-0 text-[#E85D26]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                    <div>
+                      <div class="text-xs text-[#F4F2ED]/50">Phone</div>
+                      <span id="contact-phone-value" class="font-medium text-[#F4F2ED]"></span>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start gap-3">
+                    <svg class="mt-0.5 h-4 w-4 shrink-0 text-[#E85D26]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                      <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    <div>
+                      <div class="text-xs text-[#F4F2ED]/50">Location</div>
+                      <span id="contact-location" class="font-medium text-[#F4F2ED]">Gaibandha, Bangladesh</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="space-y-3 border-t border-[#F4F2ED]/10 pt-6">
+                  <div class="text-xs font-medium text-[#F4F2ED]/50">Profiles &amp; Channels</div>
+                  <div id="contact-social-links" class="flex flex-wrap gap-x-6 gap-y-2"></div>
+                </div>
+              </div>
+
+              <div class="lg:col-span-7">
+                <form
+                  id="contact-form"
+                  novalidate
+                  class="relative space-y-5 border border-[#F4F2ED]/10 bg-[#121212] p-6 sm:p-8"
+                >
+                  <!-- Offscreen Honeypot Field -->
+                  <div
+                    aria-hidden="true"
+                    class="pointer-events-none absolute -left-[9999px] h-0 w-0 overflow-hidden opacity-0"
+                  >
+                    <label for="contact-website">Website</label>
+                    <input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+                  </div>
+
+                  <div class="grid gap-5 sm:grid-cols-2">
+                    <div>
+                      <label for="contact-name" class="block text-xs font-medium text-[#F4F2ED]/75">
+                        Your Name
+                      </label>
+                      <input
+                        id="contact-name"
+                        type="text"
+                        required
+                        maxlength="120"
+                        placeholder="Alex Rahman"
+                        class="mt-2 w-full border border-[#F4F2ED]/15 bg-[#18181B] px-3.5 py-2.5 text-sm text-[#F4F2ED] placeholder:text-[#F4F2ED]/35 focus:border-[#E85D26] focus:outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label for="contact-email" class="block text-xs font-medium text-[#F4F2ED]/75">
+                        Email Address
+                      </label>
+                      <input
+                        id="contact-email"
+                        type="email"
+                        required
+                        maxlength="160"
+                        placeholder="you@company.com"
+                        class="mt-2 w-full border border-[#F4F2ED]/15 bg-[#18181B] px-3.5 py-2.5 text-sm text-[#F4F2ED] placeholder:text-[#F4F2ED]/35 focus:border-[#E85D26] focus:outline-none"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label for="contact-subject" class="block text-xs font-medium text-[#F4F2ED]/75">
+                      Subject
+                    </label>
+                    <input
+                      id="contact-subject"
+                      type="text"
+                      required
+                      maxlength="180"
+                      placeholder="n8n workflow automation or Meta Ads inquiry"
+                      class="mt-2 w-full border border-[#F4F2ED]/15 bg-[#18181B] px-3.5 py-2.5 text-sm text-[#F4F2ED] placeholder:text-[#F4F2ED]/35 focus:border-[#E85D26] focus:outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label for="contact-message" class="block text-xs font-medium text-[#F4F2ED]/75">
+                      Message
+                    </label>
+                    <textarea
+                      id="contact-message"
+                      required
+                      rows="5"
+                      maxlength="4000"
+                      placeholder="Share your goals, timeline, and current tools..."
+                      class="mt-2 w-full resize-y border border-[#F4F2ED]/15 bg-[#18181B] px-3.5 py-2.5 text-sm text-[#F4F2ED] placeholder:text-[#F4F2ED]/35 focus:border-[#E85D26] focus:outline-none"
+                    ></textarea>
+                  </div>
+
+                  <div
+                    id="contact-error"
+                    role="alert"
+                    class="hidden items-start gap-2.5 border border-red-500/40 bg-red-950/30 px-4 py-3 text-sm text-red-200"
+                  >
+                    <svg class="mt-0.5 h-4 w-4 shrink-0 text-red-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="12" y1="8" x2="12" y2="12"></line>
+                      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <span id="contact-error-text"></span>
+                  </div>
+
+                  <div
+                    id="contact-success"
+                    role="status"
+                    class="hidden items-start gap-2.5 border border-emerald-500/40 bg-emerald-950/30 px-4 py-3 text-sm text-emerald-200"
+                  >
+                    <svg class="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                      <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                    <span id="contact-success-text"></span>
+                  </div>
+
+                  <div class="flex items-center justify-between gap-4 pt-1">
+                    <span class="text-xs text-[#F4F2ED]/50">
+                      Direct delivery · Replies within 24 hours
+                    </span>
+                    <button
+                      id="contact-submit-btn"
+                      type="submit"
+                      class="inline-flex items-center gap-2 bg-[#E85D26] px-6 py-3 text-sm font-semibold text-[#121212] transition-colors duration-150 hover:bg-[#F26E38] disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer whitespace-nowrap shrink-0"
+                    >
+                      <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                      </svg>
+                      <span id="contact-submit-label">Send Message</span>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- 10. MINIMAL FOOTER -->
+      <footer class="border-t border-[#F4F2ED]/10 bg-[#121212] py-8 text-xs text-[#F4F2ED]/55">
+        <div class="mx-auto flex max-w-[1200px] flex-col items-start justify-between gap-4 px-6 sm:flex-row sm:items-center">
+          <div id="footer-copy">
+            &copy; <span id="footer-year"></span> MD ABDUL MOMIN SARKER. Gaibandha, Bangladesh.
+          </div>
+          <div class="flex items-center gap-6">
+            <a
+              id="footer-fiverr"
+              href="https://www.fiverr.com/abdulmomin15"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1 text-[#F4F2ED]/75 transition-colors hover:text-[#E85D26]"
+            >
+              <span>Fiverr</span>
+              <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </a>
+            <a
+              href="#top"
+              data-scroll-target="top"
+              class="text-[#F4F2ED]/75 transition-colors hover:text-[#F4F2ED]"
+            >
+              Back to top
+            </a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Accessible Case Study Modal -->
+    <div
+      id="project-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="project-modal-title"
+      class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 p-4 sm:p-6"
+    >
+      <div
+        id="project-modal-panel"
+        class="relative max-h-[90vh] w-full max-w-3xl overflow-y-auto border border-[#F4F2ED]/15 bg-[#161618] text-[#F4F2ED]"
+      >
+        <div class="sticky top-0 z-10 flex items-center justify-between gap-4 border-b border-[#F4F2ED]/10 bg-[#161618]/95 px-6 py-4">
+          <span id="modal-category-label" class="text-xs font-medium text-[#F4F2ED]/65"></span>
+          <button
+            id="modal-close-btn"
+            type="button"
+            aria-label="Close project details"
+            class="inline-flex h-10 w-10 items-center justify-center border border-[#F4F2ED]/15 text-[#F4F2ED]/80 transition-colors hover:border-[#E85D26] hover:text-[#F4F2ED] cursor-pointer"
+          >
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+
+        <div class="space-y-6 p-6 sm:p-8">
+          <div class="aspect-[16/10] w-full overflow-hidden border border-[#F4F2ED]/10 bg-[#1C1C20]">
+            <img
+              id="modal-main-img"
+              src=""
+              alt=""
+              referrerpolicy="no-referrer"
+              class="h-full w-full object-cover"
+            />
+            <div id="modal-img-fallback" class="hidden h-full w-full flex-col items-center justify-center gap-3 text-[#F4F2ED]/60">
+              <svg class="h-8 w-8 text-[#E85D26]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                <polyline points="2 17 12 22 22 17"></polyline>
+                <polyline points="2 12 12 17 22 12"></polyline>
+              </svg>
+              <span id="modal-fallback-title" class="text-sm"></span>
+            </div>
+          </div>
+
+          <div id="modal-gallery" class="hidden flex-wrap gap-2"></div>
+
+          <div class="space-y-4">
+            <h2
+              id="project-modal-title"
+              class="font-display text-2xl font-bold tracking-tight text-[#F4F2ED] sm:text-3xl text-balance"
+            ></h2>
+            <p id="modal-description" class="whitespace-pre-line text-base leading-relaxed text-[#F4F2ED]/80"></p>
+          </div>
+
+          <div id="modal-tools-wrap" class="border-t border-[#F4F2ED]/10 pt-5">
+            <div class="text-xs font-medium text-[#F4F2ED]/50">Tools &amp; Stack</div>
+            <div id="modal-tools" class="mt-1.5 text-sm text-[#F4F2ED]/90"></div>
+          </div>
+
+          <div id="modal-link-wrap" class="flex items-center justify-end border-t border-[#F4F2ED]/10 pt-5">
+            <a
+              id="modal-live-link"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 bg-[#E85D26] px-5 py-2.5 text-sm font-semibold text-[#121212] transition-colors hover:bg-[#F26E38]"
+            >
+              <span>View Live Reference</span>
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        'use strict';
+
+        var DEFAULT_CONTENT = {
+          hero: {
+            name: 'MD ABDUL MOMIN SARKER',
+            title: 'Digital Marketing & Automation Specialist',
+            valueStatement:
+              'Building n8n automation workflows, Meta advertising systems, and clean visual identities that save hours every week.',
+            primaryCtaLabel: 'View Work',
+            secondaryCtaLabel: 'Get in Touch',
+            metrics: [
+              { label: 'Freelance Practice', value: '1+ Year' },
+              { label: 'Core Automation', value: 'n8n & Webhooks' },
+              { label: 'Paid Acquisition', value: 'Facebook & IG Ads' },
+              { label: 'Based In', value: 'Gaibandha, BD' },
+            ],
+          },
+          about: {
+            headline: 'Eliminating repetitive manual work while sharpening brand presence.',
+            summary:
+              'With over a year of hands-on freelance experience, I partner with businesses and founders to connect scattered tools using n8n workflow automation, run structured Facebook and Instagram ad campaigns, and craft cohesive visual assets rooted in formal graphic design training.',
+            extendedBio:
+              'Operating from Gaibandha, Bangladesh, I bridge technical workflow logic with performance marketing and clean visual design—ensuring your lead capture, reporting, and creative pipelines run reliably without manual bottlenecks.',
+            location: 'Gaibandha, Bangladesh',
+            experienceYears: '1 Year Freelance Experience',
+            profileImage: './images/profile.jpg',
+          },
+          skills: [
+            {
+              id: 'skill-automation',
+              name: 'Automation',
+              category: 'Systems',
+              detail: 'n8n, Webhook Orchestration, API Integrations, CRM Sync',
+              level: 92,
+            },
+            {
+              id: 'skill-ads',
+              name: 'Digital Advertising',
+              category: 'Growth',
+              detail: 'Facebook Ads, Instagram Ads, Pixel & Conversion Tracking',
+              level: 88,
+            },
+            {
+              id: 'skill-design',
+              name: 'Graphic Design',
+              category: 'Visual',
+              detail: 'Brand Identity, Social Creatives, Ad Layouts, Print Systems',
+              level: 86,
+            },
+            {
+              id: 'skill-marketing',
+              name: 'Digital Marketing',
+              category: 'Strategy',
+              detail: 'Lead Funnels, Content Planning, Audience Research',
+              level: 85,
+            },
+            {
+              id: 'skill-office',
+              name: 'Computer Office Applications',
+              category: 'Operations',
+              detail: 'Spreadsheets, Structured Reporting, Client Documentation',
+              level: 94,
+            },
+          ],
+          services: [
+            {
+              id: 'srv-n8n',
+              number: '01.',
+              title: 'n8n Workflow Automation',
+              description:
+                'Custom multi-step workflows connecting web forms, Google Sheets, CRMs, email notifications, and social channels so leads and operations move automatically.',
+              deliverables: ['Webhook & API pipelines', 'Lead routing & alerts', 'Automated reporting'],
+            },
+            {
+              id: 'srv-ads',
+              number: '02.',
+              title: 'Social Media Advertising',
+              description:
+                'Structured Facebook and Instagram ad campaigns built around clear audience testing, creative iteration, and measurable cost-per-result tracking.',
+              deliverables: ['Meta Ads Manager setup', 'Audience & funnel testing', 'Performance audits'],
+            },
+            {
+              id: 'srv-design',
+              number: '03.',
+              title: 'Graphic Design',
+              description:
+                'Clean, purposeful brand visuals, social campaign graphics, and high-contrast ad creatives informed by certified Level 3 graphic design craft.',
+              deliverables: ['Ad creative systems', 'Brand & social kits', 'Print-ready layouts'],
+            },
+            {
+              id: 'srv-marketing',
+              number: '04.',
+              title: 'Digital Marketing Support',
+              description:
+                'End-to-end execution support combining campaign coordination, spreadsheet tracking, landing page alignment, and ongoing channel optimization.',
+              deliverables: ['Campaign coordination', 'Analytics & sheets', 'Ongoing optimization'],
+            },
+          ],
+          experience: [
+            {
+              id: 'exp-1',
+              role: 'Freelance Digital Marketing & Automation Specialist',
+              organization: 'Independent Practice · Fiverr & Direct Clients',
+              period: '1 Year — Present',
+              location: 'Gaibandha, Bangladesh (Remote)',
+              summary:
+                'Delivering n8n workflow automations, Facebook & Instagram ad management, and graphic design systems for international and local clients.',
+            },
+          ],
+          education: [
+            {
+              id: 'edu-1',
+              degree: 'Honours (Final Year)',
+              institution: 'Gaibandha Government College',
+              status: 'Final Year Candidate',
+              location: 'Gaibandha, Bangladesh',
+            },
+          ],
+          certifications: [
+            {
+              id: 'cert-1',
+              title: 'Graphic Design Level 3',
+              issuer: 'National Skill Standard Certification',
+              level: 'Level 3',
+            },
+            {
+              id: 'cert-2',
+              title: 'Graphic Design for Freelancing Level 3',
+              issuer: 'National Skill Standard Certification',
+              level: 'Level 3',
+            },
+            {
+              id: 'cert-3',
+              title: 'Computer Office Application',
+              issuer: 'Certified Technical Training',
+              level: 'Certified',
+            },
+            {
+              id: 'cert-4',
+              title: 'Digital Marketing',
+              issuer: 'Professional Marketing Certification',
+              level: 'Certified',
+            },
+          ],
+          languages: [
+            { id: 'lang-bn', name: 'Bangla', proficiency: 'Native' },
+            { id: 'lang-en', name: 'English', proficiency: 'Fluent' },
+          ],
+          contact: {
+            email: 'momin09sarker@gmail.com',
+            phone: '',
+            location: 'Gaibandha, Bangladesh',
+            fiverrUrl: 'https://www.fiverr.com/abdulmomin15',
+            fiverrLabel: 'fiverr.com/abdulmomin15',
+            availability: 'Available for freelance projects and ongoing automation retainers.',
+            socialLinks: [
+              {
+                id: 'soc-fiverr',
+                platform: 'Fiverr',
+                label: 'Fiverr Profile',
+                url: 'https://www.fiverr.com/abdulmomin15',
+              },
+              {
+                id: 'soc-linkedin',
+                platform: 'LinkedIn',
+                label: 'LinkedIn',
+                url: 'https://www.linkedin.com',
+              },
+              {
+                id: 'soc-facebook',
+                platform: 'Facebook',
+                label: 'Facebook',
+                url: 'https://www.facebook.com',
+              },
+            ],
+          },
+          seo: {
+            title: 'MD Abdul Momin Sarker – Digital Marketing & Automation Specialist',
+            description:
+              'Portfolio of MD Abdul Momin Sarker: n8n workflow automation, Facebook and Instagram Ads, graphic design, and digital marketing from Gaibandha, Bangladesh.',
+          },
+        };
+
+        var DEFAULT_PROJECTS = [
+          {
+            id: 1,
+            title: 'Lead Capture to CRM & WhatsApp Notification Pipeline',
+            slug: 'lead-capture-crm-n8n-pipeline',
+            category: 'Automation',
+            description:
+              'Designed an automated n8n workflow that receives Meta Lead Ads and website webhook payloads, validates and deduplicates contacts in Google Sheets, routes qualified leads to CRM stages, and dispatches instant summary notifications.',
+            toolsUsed: ['n8n', 'Webhooks', 'Google Sheets', 'REST APIs'],
+            coverImage: './images/project-automation.jpg',
+            gallery: ['./images/project-automation.jpg'],
+            liveLink: 'https://www.fiverr.com/abdulmomin15',
+          },
+          {
+            id: 2,
+            title: 'Meta Ads Conversion Funnel for Regional E-Commerce',
+            slug: 'meta-ads-conversion-funnel-ecommerce',
+            category: 'Ads',
+            description:
+              'Structured a full-funnel Facebook and Instagram advertising architecture separating cold prospecting from warm retargeting audiences, paired with fresh static and carousel creative testing.',
+            toolsUsed: ['Facebook Ads', 'Instagram Ads', 'Meta Pixel', 'Campaign Reporting'],
+            coverImage: './images/project-ads.jpg',
+            gallery: ['./images/project-ads.jpg'],
+            liveLink: 'https://www.fiverr.com/abdulmomin15',
+          },
+          {
+            id: 3,
+            title: 'Minimalist Brand Identity & Ad Creative System',
+            slug: 'minimalist-brand-identity-creative-system',
+            category: 'Design',
+            description:
+              'Crafted a cohesive visual identity, print stationery layout, and modular social media ad template kit balancing high-contrast typography with clean grid geometry.',
+            toolsUsed: ['Adobe Illustrator', 'Adobe Photoshop', 'Brand Grid Systems'],
+            coverImage: './images/project-design.jpg',
+            gallery: ['./images/project-design.jpg'],
+            liveLink: 'https://www.fiverr.com/abdulmomin15',
+          },
+        ];
+
+        var state = {
+          content: DEFAULT_CONTENT,
+          projects: DEFAULT_PROJECTS,
+          activeCategory: 'All',
+          csrfToken: null,
+          formRenderedAt: Date.now(),
+        };
+
+        var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        function escapeHtml(str) {
+          return String(str == null ? '' : str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+        }
+
+        function safeUrl(url) {
+          var raw = String(url || '').trim();
+          if (!raw) return '';
+          if (raw.startsWith('/') || raw.startsWith('./')) return raw;
+          try {
+            var parsed = new URL(raw);
+            if (parsed.protocol === 'https:' || parsed.protocol === 'http:') {
+              return parsed.toString();
+            }
+          } catch (e) {
+            return '';
+          }
+          return '';
+        }
+
+        // --- Navigation & Smooth Anchors ---
+        var mobileToggle = document.getElementById('mobile-menu-toggle');
+        var mobileMenu = document.getElementById('mobile-menu');
+        var iconMenu = document.getElementById('icon-menu');
+        var iconClose = document.getElementById('icon-close');
+
+        function setMobileMenuOpen(open) {
+          if (!mobileMenu || !mobileToggle) return;
+          mobileMenu.classList.toggle('hidden', !open);
+          mobileToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+          mobileToggle.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+          if (iconMenu) iconMenu.classList.toggle('hidden', open);
+          if (iconClose) iconClose.classList.toggle('hidden', !open);
+        }
+
+        if (mobileToggle) {
+          mobileToggle.addEventListener('click', function () {
+            var isOpen = mobileToggle.getAttribute('aria-expanded') === 'true';
+            setMobileMenuOpen(!isOpen);
+          });
+        }
+
+        document.querySelectorAll('[data-scroll-target]').forEach(function (el) {
+          el.addEventListener('click', function (e) {
+            var targetId = el.getAttribute('data-scroll-target');
+            if (!targetId) return;
+            e.preventDefault();
+            setMobileMenuOpen(false);
+            if (targetId === 'top') {
+              window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
+              return;
+            }
+            var targetEl = document.getElementById(targetId);
+            if (targetEl) {
+              var top = targetEl.getBoundingClientRect().top + window.scrollY - 64;
+              window.scrollTo({ top: Math.max(0, top), behavior: reducedMotion ? 'auto' : 'smooth' });
+            }
+          });
+        });
+
+        // --- Render Site Content ---
+        function renderContent() {
+          var c = state.content;
+
+          if (c.seo && c.seo.title) {
+            document.title = c.seo.title;
+          }
+          var metaDesc = document.querySelector('meta[name="description"]');
+          if (metaDesc && c.seo && c.seo.description) {
+            metaDesc.setAttribute('content', c.seo.description);
+          }
+
+          var heroName = document.getElementById('hero-name');
+          if (heroName) heroName.textContent = c.hero.name;
+
+          var titleWords = (c.hero.title || '').split(' ');
+          var line1 = document.getElementById('hero-title-line-1');
+          var line2 = document.getElementById('hero-title-line-2');
+          if (line1) line1.textContent = titleWords.slice(0, 2).join(' ');
+          if (line2) {
+            var rest = titleWords.slice(2).join(' ');
+            line2.textContent = rest;
+            line2.style.display = rest ? 'block' : 'none';
+          }
+
+          var valueEl = document.getElementById('hero-value-statement');
+          if (valueEl) valueEl.textContent = c.hero.valueStatement;
+
+          var pCta = document.querySelector('#hero-primary-cta span');
+          var sCta = document.querySelector('#hero-secondary-cta span');
+          if (pCta) pCta.textContent = c.hero.primaryCtaLabel;
+          if (sCta) sCta.textContent = c.hero.secondaryCtaLabel;
+
+          var metricsEl = document.getElementById('hero-metrics');
+          if (metricsEl && Array.isArray(c.hero.metrics)) {
+            metricsEl.innerHTML = c.hero.metrics
+              .map(function (m) {
+                return (
+                  '<div class="space-y-1">' +
+                  '<div class="text-xs text-[#F4F2ED]/50">' + escapeHtml(m.label) + '</div>' +
+                  '<div class="font-display text-lg font-semibold tracking-tight text-[#F4F2ED] tabular-nums sm:text-xl">' + escapeHtml(m.value) + '</div>' +
+                  '</div>'
+                );
+              })
+              .join('');
+          }
+
+          // About
+          var portrait = document.getElementById('about-portrait');
+          var portraitFallback = document.getElementById('about-portrait-fallback');
+          if (portrait && portraitFallback) {
+            var imgSrc = safeUrl(c.about.profileImage) || './images/profile.jpg';
+            portrait.src = imgSrc;
+            portrait.onerror = function () {
+              portrait.classList.add('hidden');
+              portraitFallback.classList.remove('hidden');
+              portraitFallback.classList.add('flex');
+            };
+          }
+          var aboutLoc = document.getElementById('about-location');
+          var aboutHead = document.getElementById('about-headline');
+          var aboutSum = document.getElementById('about-summary');
+          var aboutExt = document.getElementById('about-extended');
+          var aboutExp = document.getElementById('about-exp-years');
+          if (aboutLoc) aboutLoc.textContent = c.about.location;
+          if (aboutHead) aboutHead.textContent = c.about.headline;
+          if (aboutSum) aboutSum.textContent = c.about.summary;
+          if (aboutExt) {
+            aboutExt.textContent = c.about.extendedBio || '';
+            aboutExt.style.display = c.about.extendedBio ? 'block' : 'none';
+          }
+          if (aboutExp) aboutExp.textContent = c.about.experienceYears;
+
+          // Skills
+          var skillsGrid = document.getElementById('skills-grid');
+          if (skillsGrid && Array.isArray(c.skills)) {
+            skillsGrid.innerHTML = c.skills
+              .map(function (skill, idx) {
+                var num = String(idx + 1).padStart(2, '0');
+                var level = Math.max(0, Math.min(100, Number(skill.level) || 0));
+                return (
+                  '<div class="border border-[#F4F2ED]/10 bg-[#161618] p-6">' +
+                    '<div class="flex items-baseline justify-between gap-4">' +
+                      '<div class="space-y-1">' +
+                        '<div class="text-xs font-medium text-[#F4F2ED]/50">' + num + ' <span aria-hidden="true">·</span> ' + escapeHtml(skill.category) + '</div>' +
+                        '<h3 class="font-display text-xl font-bold text-[#F4F2ED]">' + escapeHtml(skill.name) + '</h3>' +
+                      '</div>' +
+                      '<span data-skill-counter data-target="' + level + '" class="font-mono text-lg font-medium text-[#E85D26] tabular-nums">' + level + '%</span>' +
+                    '</div>' +
+                    '<p class="mt-2 text-sm text-[#F4F2ED]/70">' + escapeHtml(skill.detail) + '</p>' +
+                    '<div class="mt-5 h-1.5 w-full overflow-hidden bg-[#F4F2ED]/10">' +
+                      '<div data-skill-bar data-level="' + level + '" class="h-full origin-left bg-[#E85D26] transition-transform duration-700 ease-out" style="transform: scaleX(' + (level / 100) + ')"></div>' +
+                    '</div>' +
+                  '</div>'
+                );
+              })
+              .join('');
+            observeSkills();
+          }
+
+          // Services
+          var servicesGrid = document.getElementById('services-grid');
+          if (servicesGrid && Array.isArray(c.services)) {
+            servicesGrid.innerHTML = c.services
+              .map(function (srv) {
+                var deliv = Array.isArray(srv.deliverables) && srv.deliverables.length
+                  ? '<div class="border-t border-[#F4F2ED]/10 pt-4 text-xs text-[#F4F2ED]/60">' + srv.deliverables.map(escapeHtml).join(' · ') + '</div>'
+                  : '';
+                return (
+                  '<div class="flex flex-col justify-between gap-6 border border-[#F4F2ED]/10 bg-[#121212] p-7 transition-colors duration-200 hover:border-[#E85D26]/50">' +
+                    '<div class="space-y-4">' +
+                      '<div class="font-mono text-sm font-medium text-[#E85D26] tabular-nums">' + escapeHtml(srv.number) + '</div>' +
+                      '<h3 class="font-display text-2xl font-bold tracking-tight text-[#F4F2ED]">' + escapeHtml(srv.title) + '</h3>' +
+                      '<p class="text-sm leading-relaxed text-[#F4F2ED]/75 sm:text-base">' + escapeHtml(srv.description) + '</p>' +
+                    '</div>' +
+                    deliv +
+                  '</div>'
+                );
+              })
+              .join('');
+          }
+
+          // Experience
+          var expList = document.getElementById('experience-list');
+          if (expList && Array.isArray(c.experience)) {
+            expList.innerHTML = c.experience
+              .map(function (exp) {
+                return (
+                  '<div class="space-y-2">' +
+                    '<div class="flex flex-wrap items-baseline justify-between gap-2">' +
+                      '<h4 class="font-display text-xl font-bold text-[#F4F2ED]">' + escapeHtml(exp.role) + '</h4>' +
+                      '<span class="font-mono text-xs text-[#E85D26] tabular-nums">' + escapeHtml(exp.period) + '</span>' +
+                    '</div>' +
+                    '<div class="text-sm font-medium text-[#F4F2ED]/65">' + escapeHtml(exp.organization) + ' <span aria-hidden="true">·</span> ' + escapeHtml(exp.location) + '</div>' +
+                    '<p class="text-sm leading-relaxed text-[#F4F2ED]/75">' + escapeHtml(exp.summary) + '</p>' +
+                  '</div>'
+                );
+              })
+              .join('');
+          }
+
+          // Education
+          var eduList = document.getElementById('education-list');
+          if (eduList && Array.isArray(c.education)) {
+            eduList.innerHTML = c.education
+              .map(function (edu) {
+                return (
+                  '<div class="space-y-1">' +
+                    '<div class="flex flex-wrap items-baseline justify-between gap-2">' +
+                      '<h4 class="font-display text-xl font-bold text-[#F4F2ED]">' + escapeHtml(edu.degree) + '</h4>' +
+                      '<span class="font-mono text-xs text-[#F4F2ED]/60">' + escapeHtml(edu.status) + '</span>' +
+                    '</div>' +
+                    '<div class="text-sm text-[#F4F2ED]/75">' + escapeHtml(edu.institution) + ' <span aria-hidden="true">·</span> ' + escapeHtml(edu.location) + '</div>' +
+                  '</div>'
+                );
+              })
+              .join('');
+          }
+
+          // Certifications
+          var certList = document.getElementById('certifications-list');
+          if (certList && Array.isArray(c.certifications)) {
+            certList.innerHTML = c.certifications
+              .map(function (cert) {
+                return (
+                  '<li class="py-4 first:pt-0 last:pb-0">' +
+                    '<div class="flex items-baseline justify-between gap-3">' +
+                      '<span class="font-display text-base font-semibold text-[#F4F2ED]">' + escapeHtml(cert.title) + '</span>' +
+                      '<span class="font-mono text-xs text-[#E85D26] shrink-0">' + escapeHtml(cert.level) + '</span>' +
+                    '</div>' +
+                    '<div class="mt-1 text-xs text-[#F4F2ED]/55">' + escapeHtml(cert.issuer) + '</div>' +
+                  '</li>'
+                );
+              })
+              .join('');
+          }
+
+          // Languages
+          var langGrid = document.getElementById('languages-grid');
+          if (langGrid && Array.isArray(c.languages)) {
+            langGrid.innerHTML = c.languages
+              .map(function (lang) {
+                return (
+                  '<div class="border border-[#F4F2ED]/10 bg-[#161618] p-4">' +
+                    '<div class="font-display text-lg font-bold text-[#F4F2ED]">' + escapeHtml(lang.name) + '</div>' +
+                    '<div class="mt-1 text-xs text-[#F4F2ED]/65">' + escapeHtml(lang.proficiency) + '</div>' +
+                  '</div>'
+                );
+              })
+              .join('');
+          }
+
+          // Contact & Footer
+          var avail = document.getElementById('contact-availability');
+          var emailLink = document.getElementById('contact-email-link');
+          var phoneRow = document.getElementById('contact-phone-row');
+          var phoneVal = document.getElementById('contact-phone-value');
+          var contactLoc = document.getElementById('contact-location');
+          var socialsWrap = document.getElementById('contact-social-links');
+          var footerCopy = document.getElementById('footer-copy');
+          var footerFiverr = document.getElementById('footer-fiverr');
+
+          if (avail) avail.textContent = c.contact.availability;
+          if (emailLink) {
+            emailLink.href = 'mailto:' + c.contact.email;
+            emailLink.textContent = c.contact.email;
+          }
+          if (phoneRow && phoneVal) {
+            if (c.contact.phone) {
+              phoneRow.classList.remove('hidden');
+              phoneRow.classList.add('flex');
+              phoneVal.textContent = c.contact.phone;
+            } else {
+              phoneRow.classList.add('hidden');
+              phoneRow.classList.remove('flex');
+            }
+          }
+          if (contactLoc) contactLoc.textContent = c.contact.location;
+
+          if (socialsWrap) {
+            var linksHtml = '';
+            var fiverrHref = safeUrl(c.contact.fiverrUrl);
+            if (fiverrHref) {
+              linksHtml +=
+                '<a href="' + escapeHtml(fiverrHref) + '" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-sm font-medium text-[#E85D26] transition-colors hover:text-[#F26E38]">' +
+                  '<span>' + escapeHtml(c.contact.fiverrLabel || 'Fiverr') + '</span>' +
+                  '<svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>' +
+                '</a>';
+            }
+            if (Array.isArray(c.contact.socialLinks)) {
+              c.contact.socialLinks.forEach(function (soc) {
+                var href = safeUrl(soc.url);
+                if (!href || href === fiverrHref) return;
+                linksHtml +=
+                  '<a href="' + escapeHtml(href) + '" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-sm font-medium text-[#F4F2ED]/80 transition-colors hover:text-[#F4F2ED]">' +
+                    '<span>' + escapeHtml(soc.label) + '</span>' +
+                    '<svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>' +
+                  '</a>';
+              });
+            }
+            socialsWrap.innerHTML = linksHtml;
+          }
+
+          if (footerCopy) {
+            footerCopy.innerHTML =
+              '&copy; ' + new Date().getFullYear() + ' ' + escapeHtml(c.hero.name) + '. ' + escapeHtml(c.contact.location) + '.';
+          }
+          if (footerFiverr) {
+            var fUrl = safeUrl(c.contact.fiverrUrl);
+            if (fUrl) {
+              footerFiverr.href = fUrl;
+              footerFiverr.classList.remove('hidden');
+            } else {
+              footerFiverr.classList.add('hidden');
+            }
+          }
+        }
+
+        // --- Projects & Filter & Modal ---
+        var CATEGORIES = ['All', 'Automation', 'Ads', 'Design'];
+
+        function renderProjects() {
+          var tabsEl = document.getElementById('project-filter-tabs');
+          var controlsEl = document.getElementById('project-rail-controls');
+          var containerEl = document.getElementById('projects-container');
+          if (!tabsEl || !containerEl) return;
+
+          tabsEl.innerHTML = CATEGORIES.map(function (cat) {
+            var active = state.activeCategory === cat;
+            return (
+              '<button type="button" role="tab" aria-selected="' + (active ? 'true' : 'false') + '" data-category="' + cat + '" ' +
+              'class="px-3.5 py-2 text-xs font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer ' +
+              (active ? 'bg-[#121212] text-[#F4F2ED]' : 'text-[#121212]/70 hover:text-[#121212]') + '">' +
+              cat +
+              '</button>'
+            );
+          }).join('');
+
+          tabsEl.querySelectorAll('button[data-category]').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+              state.activeCategory = btn.getAttribute('data-category') || 'All';
+              renderProjects();
+            });
+          });
+
+          var filtered = state.activeCategory === 'All'
+            ? state.projects
+            : state.projects.filter(function (p) { return p.category === state.activeCategory; });
+
+          if (controlsEl) {
+            controlsEl.style.display = filtered.length > 1 ? '' : 'none';
+          }
+
+          if (filtered.length === 0) {
+            var emptyDesc = state.activeCategory === 'All'
+              ? 'New case studies are currently being documented. Reach out directly to discuss recent automation or marketing work.'
+              : 'No published projects in the ' + escapeHtml(state.activeCategory) + ' category yet.';
+            containerEl.innerHTML =
+              '<div class="border border-[#121212]/15 bg-[#EAE7DF] px-8 py-16 text-center">' +
+                '<p class="font-display text-2xl font-bold text-[#121212]">Projects coming soon</p>' +
+                '<p class="mx-auto mt-2 max-w-md text-sm text-[#121212]/70">' + emptyDesc + '</p>' +
+              '</div>';
+            return;
+          }
+
+          containerEl.innerHTML =
+            '<div id="project-rail" class="project-rail flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4">' +
+            filtered.map(function (proj, idx) {
+              var idxLabel = String(idx + 1).padStart(2, '0');
+              var imgUrl = safeUrl(proj.coverImage);
+              var tools = Array.isArray(proj.toolsUsed) && proj.toolsUsed.length
+                ? '<div class="border-t border-[#121212]/10 pt-3.5 text-xs text-[#121212]/65">' + proj.toolsUsed.slice(0, 4).map(escapeHtml).join(' · ') + '</div>'
+                : '';
+
+              return (
+                '<div class="w-[86vw] shrink-0 snap-start sm:w-[420px] lg:w-[376px]">' +
+                  '<article data-cursor="expand" class="group flex h-full flex-col border border-[#121212]/15 bg-[#EAE7DF] transition-colors duration-200 hover:border-[#121212]/40">' +
+                    '<button type="button" data-project-idx="' + idx + '" class="project-card-btn flex h-full w-full flex-col text-left cursor-pointer" style="transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1)">' +
+                      '<div class="relative aspect-[4/3] w-full overflow-hidden bg-[#18181B]">' +
+                        (imgUrl
+                          ? '<img src="' + escapeHtml(imgUrl) + '" alt="' + escapeHtml(proj.title) + '" loading="lazy" referrerpolicy="no-referrer" class="project-img h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]" />'
+                          : '') +
+                        '<div class="project-img-fallback ' + (imgUrl ? 'hidden' : 'flex') + ' h-full w-full flex-col items-center justify-center gap-3 bg-[#1C1C20] p-6 text-[#F4F2ED]/60">' +
+                          '<svg class="h-7 w-7 text-[#E85D26]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>' +
+                          '<span class="text-xs font-medium tracking-wide">' + escapeHtml(proj.category) + '</span>' +
+                        '</div>' +
+                      '</div>' +
+                      '<div class="flex flex-1 flex-col justify-between gap-5 p-6">' +
+                        '<div class="space-y-2.5">' +
+                          '<div class="flex items-center justify-between gap-3 text-xs font-medium text-[#121212]/65">' +
+                            '<span class="font-mono tabular-nums">' + idxLabel + ' <span aria-hidden="true">·</span> ' + escapeHtml(proj.category) + '</span>' +
+                            '<svg class="h-4 w-4 text-[#121212]/50 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#E85D26]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>' +
+                          '</div>' +
+                          '<h3 class="font-display text-xl font-bold leading-snug tracking-tight text-[#121212] text-balance">' + escapeHtml(proj.title) + '</h3>' +
+                          '<p class="line-clamp-3 text-sm leading-relaxed text-[#121212]/75">' + escapeHtml(proj.description) + '</p>' +
+                        '</div>' +
+                        tools +
+                      '</div>' +
+                    '</button>' +
+                  '</article>' +
+                '</div>'
+              );
+            }).join('') +
+            '</div>';
+
+          containerEl.querySelectorAll('.project-img').forEach(function (img) {
+            img.addEventListener('error', function () {
+              img.classList.add('hidden');
+              var fb = img.parentElement && img.parentElement.querySelector('.project-img-fallback');
+              if (fb) {
+                fb.classList.remove('hidden');
+                fb.classList.add('flex');
+              }
+            });
+          });
+
+          containerEl.querySelectorAll('.project-card-btn').forEach(function (btn) {
+            var idx = Number(btn.getAttribute('data-project-idx'));
+            var proj = filtered[idx];
+
+            btn.addEventListener('click', function () {
+              if (proj) openProjectModal(proj);
+            });
+
+            if (!reducedMotion) {
+              btn.addEventListener('mousemove', function (e) {
+                var rect = btn.getBoundingClientRect();
+                var x = (e.clientX - rect.left) / rect.width - 0.5;
+                var y = (e.clientY - rect.top) / rect.height - 0.5;
+                btn.style.transform = 'perspective(900px) rotateX(' + (-y * 5) + 'deg) rotateY(' + (x * 5) + 'deg)';
+              });
+              btn.addEventListener('mouseleave', function () {
+                btn.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg)';
+              });
+            }
+          });
+        }
+
+        var railPrev = document.getElementById('rail-prev');
+        var railNext = document.getElementById('rail-next');
+        function scrollRail(dir) {
+          var rail = document.getElementById('project-rail');
+          if (!rail) return;
+          var distance = Math.max(320, rail.clientWidth * 0.65);
+          rail.scrollBy({
+            left: dir === 'next' ? distance : -distance,
+            behavior: reducedMotion ? 'auto' : 'smooth',
+          });
+        }
+        if (railPrev) railPrev.addEventListener('click', function () { scrollRail('prev'); });
+        if (railNext) railNext.addEventListener('click', function () { scrollRail('next'); });
+
+        // --- Modal ---
+        var modal = document.getElementById('project-modal');
+        var modalPanel = document.getElementById('project-modal-panel');
+        var modalCloseBtn = document.getElementById('modal-close-btn');
+        var modalCat = document.getElementById('modal-category-label');
+        var modalImg = document.getElementById('modal-main-img');
+        var modalImgFallback = document.getElementById('modal-img-fallback');
+        var modalFallbackTitle = document.getElementById('modal-fallback-title');
+        var modalGallery = document.getElementById('modal-gallery');
+        var modalTitle = document.getElementById('project-modal-title');
+        var modalDesc = document.getElementById('modal-description');
+        var modalToolsWrap = document.getElementById('modal-tools-wrap');
+        var modalTools = document.getElementById('modal-tools');
+        var modalLinkWrap = document.getElementById('modal-link-wrap');
+        var modalLiveLink = document.getElementById('modal-live-link');
+
+        function setModalImage(src, altText) {
+          if (!modalImg || !modalImgFallback) return;
+          var clean = safeUrl(src);
+          if (clean) {
+            modalImg.src = clean;
+            modalImg.alt = altText;
+            modalImg.classList.remove('hidden');
+            modalImgFallback.classList.add('hidden');
+            modalImgFallback.classList.remove('flex');
+          } else {
+            modalImg.classList.add('hidden');
+            modalImgFallback.classList.remove('hidden');
+            modalImgFallback.classList.add('flex');
+          }
+        }
+
+        if (modalImg) {
+          modalImg.addEventListener('error', function () {
+            modalImg.classList.add('hidden');
+            if (modalImgFallback) {
+              modalImgFallback.classList.remove('hidden');
+              modalImgFallback.classList.add('flex');
+            }
+          });
+        }
+
+        function openProjectModal(project) {
+          if (!modal) return;
+          if (modalCat) modalCat.innerHTML = escapeHtml(project.category) + ' <span aria-hidden="true">·</span> Case Study';
+          if (modalTitle) modalTitle.textContent = project.title;
+          if (modalFallbackTitle) modalFallbackTitle.textContent = project.title;
+          if (modalDesc) modalDesc.textContent = project.description;
+
+          var rawImages = [project.coverImage].concat(Array.isArray(project.gallery) ? project.gallery : []);
+          var images = [];
+          rawImages.forEach(function (src) {
+            var s = safeUrl(src);
+            if (s && images.indexOf(s) === -1) images.push(s);
+          });
+
+          setModalImage(images[0] || '', project.title);
+
+          if (modalGallery) {
+            if (images.length > 1) {
+              modalGallery.classList.remove('hidden');
+              modalGallery.classList.add('flex');
+              modalGallery.innerHTML = images
+                .map(function (src, i) {
+                  var active = i === 0;
+                  return (
+                    '<button type="button" data-gallery-src="' + escapeHtml(src) + '" class="h-16 w-24 overflow-hidden border transition-colors cursor-pointer ' +
+                    (active ? 'border-[#E85D26]' : 'border-[#F4F2ED]/15 opacity-65 hover:opacity-100') + '">' +
+                    '<img src="' + escapeHtml(src) + '" alt="' + escapeHtml(project.title) + ' preview ' + (i + 1) + '" referrerpolicy="no-referrer" class="h-full w-full object-cover" />' +
+                    '</button>'
+                  );
+                })
+                .join('');
+              modalGallery.querySelectorAll('button[data-gallery-src]').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                  setModalImage(btn.getAttribute('data-gallery-src') || '', project.title);
+                  modalGallery.querySelectorAll('button').forEach(function (b) {
+                    b.className = 'h-16 w-24 overflow-hidden border transition-colors cursor-pointer border-[#F4F2ED]/15 opacity-65 hover:opacity-100';
+                  });
+                  btn.className = 'h-16 w-24 overflow-hidden border transition-colors cursor-pointer border-[#E85D26]';
+                });
+              });
+            } else {
+              modalGallery.classList.add('hidden');
+              modalGallery.classList.remove('flex');
+              modalGallery.innerHTML = '';
+            }
+          }
+
+          if (modalToolsWrap && modalTools) {
+            if (Array.isArray(project.toolsUsed) && project.toolsUsed.length > 0) {
+              modalToolsWrap.classList.remove('hidden');
+              modalTools.textContent = project.toolsUsed.join(' · ');
+            } else {
+              modalToolsWrap.classList.add('hidden');
+            }
+          }
+
+          if (modalLinkWrap && modalLiveLink) {
+            var link = safeUrl(project.liveLink);
+            if (link) {
+              modalLiveLink.href = link;
+              modalLinkWrap.classList.remove('hidden');
+            } else {
+              modalLinkWrap.classList.add('hidden');
+            }
+          }
+
+          modal.classList.remove('hidden');
+          modal.classList.add('flex');
+          document.body.style.overflow = 'hidden';
+        }
+
+        function closeProjectModal() {
+          if (!modal) return;
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+          document.body.style.overflow = '';
+        }
+
+        if (modal) {
+          modal.addEventListener('click', closeProjectModal);
+        }
+        if (modalPanel) {
+          modalPanel.addEventListener('click', function (e) { e.stopPropagation(); });
+        }
+        if (modalCloseBtn) {
+          modalCloseBtn.addEventListener('click', closeProjectModal);
+        }
+        window.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
+            closeProjectModal();
+          }
+        });
+
+        // --- Animated Skill Bars & Counters ---
+        function observeSkills() {
+          if (reducedMotion || typeof IntersectionObserver === 'undefined') return;
+          var grid = document.getElementById('skills-grid');
+          if (!grid) return;
+
+          var bars = grid.querySelectorAll('[data-skill-bar]');
+          var counters = grid.querySelectorAll('[data-skill-counter]');
+          bars.forEach(function (bar) {
+            bar.style.transform = 'scaleX(0)';
+          });
+
+          var animated = false;
+          var observer = new IntersectionObserver(
+            function (entries) {
+              if (animated) return;
+              var visible = entries.some(function (en) { return en.isIntersecting; });
+              if (!visible) return;
+              animated = true;
+              observer.disconnect();
+
+              bars.forEach(function (bar) {
+                var level = Number(bar.getAttribute('data-level') || 0) / 100;
+                requestAnimationFrame(function () {
+                  bar.style.transform = 'scaleX(' + level + ')';
+                });
+              });
+
+              counters.forEach(function (counter) {
+                var target = Number(counter.getAttribute('data-target') || 0);
+                var start = performance.now();
+                var dur = 800;
+                function step(now) {
+                  var p = Math.min(1, (now - start) / dur);
+                  var eased = 1 - Math.pow(1 - p, 3);
+                  counter.textContent = Math.round(target * eased) + '%';
+                  if (p < 1) requestAnimationFrame(step);
+                }
+                requestAnimationFrame(step);
+              });
+            },
+            { threshold: 0.12 }
+          );
+          observer.observe(grid);
+        }
+
+        // --- Contact Form (API when backend present, helpful direct fallback on static hosts) ---
+        var contactForm = document.getElementById('contact-form');
+        var errBox = document.getElementById('contact-error');
+        var errText = document.getElementById('contact-error-text');
+        var okBox = document.getElementById('contact-success');
+        var okText = document.getElementById('contact-success-text');
+        var submitBtn = document.getElementById('contact-submit-btn');
+        var submitLabel = document.getElementById('contact-submit-label');
+
+        function showFormError(msg) {
+          if (okBox) { okBox.classList.add('hidden'); okBox.classList.remove('flex'); }
+          if (errBox && errText) {
+            errText.textContent = msg;
+            errBox.classList.remove('hidden');
+            errBox.classList.add('flex');
+          }
+        }
+
+        function showFormSuccess(msg) {
+          if (errBox) { errBox.classList.add('hidden'); errBox.classList.remove('flex'); }
+          if (okBox && okText) {
+            okText.textContent = msg;
+            okBox.classList.remove('hidden');
+            okBox.classList.add('flex');
+          }
+        }
+
+        function fetchCsrfToken(force) {
+          if (state.csrfToken && !force) return Promise.resolve(state.csrfToken);
+          return fetch('/api/csrf', { credentials: 'same-origin' })
+            .then(function (res) {
+              var ct = res.headers.get('content-type') || '';
+              if (!res.ok || ct.indexOf('application/json') === -1) {
+                throw new Error('NO_BACKEND');
+              }
+              return res.json();
+            })
+            .then(function (data) {
+              if (!data || !data.csrfToken) throw new Error('NO_BACKEND');
+              state.csrfToken = data.csrfToken;
+              return data.csrfToken;
+            });
+        }
+
+        if (contactForm) {
+          contactForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            if (errBox) { errBox.classList.add('hidden'); errBox.classList.remove('flex'); }
+            if (okBox) { okBox.classList.add('hidden'); okBox.classList.remove('flex'); }
+
+            var nameEl = document.getElementById('contact-name');
+            var emailEl = document.getElementById('contact-email');
+            var subjEl = document.getElementById('contact-subject');
+            var msgEl = document.getElementById('contact-message');
+            var webEl = document.getElementById('contact-website');
+
+            var name = (nameEl && nameEl.value || '').trim();
+            var email = (emailEl && emailEl.value || '').trim();
+            var subject = (subjEl && subjEl.value || '').trim();
+            var message = (msgEl && msgEl.value || '').trim();
+            var website = (webEl && webEl.value || '').trim();
+
+            if (name.length < 2) {
+              showFormError('Please enter your name (at least 2 characters).');
+              return;
+            }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+              showFormError('Please enter a valid email address.');
+              return;
+            }
+            if (subject.length < 3) {
+              showFormError('Please enter a subject (at least 3 characters).');
+              return;
+            }
+            if (message.length < 10) {
+              showFormError('Please write a message of at least 10 characters.');
+              return;
+            }
+
+            if (submitBtn) submitBtn.disabled = true;
+            if (submitLabel) submitLabel.textContent = 'Sending...';
+
+            fetchCsrfToken(false)
+              .then(function (token) {
+                return fetch('/api/contact', {
+                  method: 'POST',
+                  credentials: 'same-origin',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'x-csrf-token': token,
+                  },
+                  body: JSON.stringify({
+                    name: name,
+                    email: email,
+                    subject: subject,
+                    message: message,
+                    website: website,
+                    formRenderedAt: state.formRenderedAt,
+                  }),
+                });
+              })
+              .then(function (res) {
+                var ct = res.headers.get('content-type') || '';
+                if (ct.indexOf('application/json') === -1) throw new Error('NO_BACKEND');
+                return res.json().then(function (data) {
+                  if (!res.ok) throw new Error((data && data.error) || 'Unable to send message right now.');
+                  return data;
+                });
+              })
+              .then(function () {
+                showFormSuccess('Thank you for reaching out. Your message has been received and I will reply shortly.');
+                if (nameEl) nameEl.value = '';
+                if (emailEl) emailEl.value = '';
+                if (subjEl) subjEl.value = '';
+                if (msgEl) msgEl.value = '';
+                state.formRenderedAt = Date.now();
+              })
+              .catch(function (err) {
+                var msg = err && err.message ? err.message : '';
+                if (msg === 'NO_BACKEND' || msg.indexOf('Failed to fetch') !== -1) {
+                  showFormError('Direct form delivery requires the backend server. Please email ' + state.content.contact.email + ' directly or connect via Fiverr.');
+                } else {
+                  showFormError(msg || 'Unable to send message right now. Please try again.');
+                }
+              })
+              .finally(function () {
+                if (submitBtn) submitBtn.disabled = false;
+                if (submitLabel) submitLabel.textContent = 'Send Message';
+              });
+          });
+        }
+
+        // --- Cursor Follower (Desktop Fine Pointer) ---
+        (function initCursorFollower() {
+          var ring = document.getElementById('cursor-ring');
+          if (!ring || reducedMotion) return;
+          var fine = window.matchMedia && window.matchMedia('(pointer: fine)').matches;
+          if (!fine) return;
+
+          ring.classList.remove('hidden');
+          var targetX = -100, targetY = -100, currentX = -100, currentY = -100;
+          var scale = 1, targetScale = 1;
+
+          window.addEventListener('mousemove', function (e) {
+            targetX = e.clientX;
+            targetY = e.clientY;
+            var interactive = e.target && e.target.closest && e.target.closest('a, button, [data-cursor="expand"]');
+            targetScale = interactive ? 1.8 : 1;
+          }, { passive: true });
+
+          document.addEventListener('mouseleave', function () {
+            targetX = -100;
+            targetY = -100;
+          });
+
+          function tickCursor() {
+            currentX += (targetX - currentX) * 0.18;
+            currentY += (targetY - currentY) * 0.18;
+            scale += (targetScale - scale) * 0.16;
+            ring.style.transform = 'translate3d(' + currentX + 'px, ' + currentY + 'px, 0) translate(-50%, -50%) scale(' + scale + ')';
+            requestAnimationFrame(tickCursor);
+          }
+          requestAnimationFrame(tickCursor);
+        })();
+
+        // --- Pure Vanilla 3D Connected-Nodes Canvas Scene (Zero External 3D Libraries) ---
+        (function initWorkflowScene() {
+          var canvas = document.getElementById('workflow-canvas');
+          var svgFallback = document.getElementById('workflow-svg-fallback');
+          var wrapper = document.getElementById('workflow-scene-wrapper');
+          if (!canvas || !svgFallback || !wrapper) return;
+
+          var isMobile = window.innerWidth < 640;
+          if (reducedMotion || isMobile || !canvas.getContext) {
+            canvas.classList.add('hidden');
+            svgFallback.classList.remove('hidden');
+            svgFallback.classList.add('flex');
+            return;
+          }
+
+          var ctx = canvas.getContext('2d');
+          if (!ctx) {
+            canvas.classList.add('hidden');
+            svgFallback.classList.remove('hidden');
+            svgFallback.classList.add('flex');
+            return;
+          }
+
+          var nodes = [
+            { x: -3.2, y: 0.35, z: -0.4, scale: 1.05, primary: true, label: 'TRIGGER' },
+            { x: -1.25, y: 1.7, z: 0.85, scale: 0.9, primary: false, label: 'FILTER' },
+            { x: -1.05, y: -1.6, z: 0.55, scale: 0.9, primary: false, label: 'META ADS' },
+            { x: 0.35, y: 0.1, z: -0.25, scale: 1.32, primary: true, label: 'N8N CORE' },
+            { x: 2.1, y: 1.45, z: 0.85, scale: 0.9, primary: false, label: 'CRM SYNC' },
+            { x: 2.25, y: -1.35, z: -0.6, scale: 0.9, primary: false, label: 'CREATIVE' },
+            { x: 3.55, y: 0.15, z: 0.2, scale: 1.05, primary: true, label: 'REPORT' },
+          ];
+
+          var edges = [
+            { a: 0, b: 1, accent: true, bend: 0.55 },
+            { a: 0, b: 2, accent: false, bend: -0.5 },
+            { a: 0, b: 3, accent: true, bend: 0.3 },
+            { a: 1, b: 3, accent: false, bend: -0.35 },
+            { a: 2, b: 3, accent: true, bend: 0.4 },
+            { a: 3, b: 4, accent: true, bend: -0.45 },
+            { a: 3, b: 5, accent: false, bend: 0.45 },
+            { a: 4, b: 6, accent: true, bend: 0.35 },
+            { a: 5, b: 6, accent: false, bend: -0.35 },
+            { a: 1, b: 4, accent: false, bend: 0.65 },
+          ];
+
+          var pulses = [];
+          for (var i = 0; i < 28; i++) {
+            pulses.push({
+              edgeIndex: i % edges.length,
+              offset: (i / 28 + (i % 3) * 0.17) % 1,
+              speed: 0.16 + (i % 4) * 0.045,
+            });
+          }
+
+          var width = 600, height = 460, dpr = 1;
+          function resizeCanvas() {
+            var rect = wrapper.getBoundingClientRect();
+            width = Math.max(300, Math.floor(rect.width));
+            height = Math.max(280, Math.floor(rect.height));
+            dpr = Math.min(window.devicePixelRatio || 1, 2);
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+          }
+          resizeCanvas();
+          window.addEventListener('resize', resizeCanvas);
+
+          var pointerX = 0, pointerY = 0, scrollProgress = 0;
+          var curRotY = 0, curRotX = 0, curCamZ = 10.6;
+
+          window.addEventListener('pointermove', function (e) {
+            var rect = wrapper.getBoundingClientRect();
+            if (!rect.width || !rect.height) return;
+            pointerX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+            pointerY = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+          }, { passive: true });
+
+          window.addEventListener('scroll', function () {
+            var maxScroll = Math.max(1, window.innerHeight * 1.1);
+            scrollProgress = Math.min(1, Math.max(0, window.scrollY / maxScroll));
+          }, { passive: true });
+
+          function project(x, y, z, rotY, rotX, camZ) {
+            // Rotate Y then X
+            var cosY = Math.cos(rotY), sinY = Math.sin(rotY);
+            var x1 = x * cosY - z * sinY;
+            var z1 = x * sinY + z * cosY;
+
+            var cosX = Math.cos(rotX), sinX = Math.sin(rotX);
+            var y2 = y * cosX - z1 * sinX;
+            var z2 = y * sinX + z1 * cosX;
+
+            var depth = camZ - z2;
+            var fov = Math.min(width, height) * 1.15;
+            var scale = fov / Math.max(2.5, depth);
+            return {
+              sx: width * 0.5 + x1 * scale,
+              sy: height * 0.5 - y2 * scale,
+              scale: scale,
+              depth: depth,
+            };
+          }
+
+          function quadPoint(p0, p1, p2, t) {
+            var u = 1 - t;
+            return {
+              sx: u * u * p0.sx + 2 * u * t * p1.sx + t * t * p2.sx,
+              sy: u * u * p0.sy + 2 * u * t * p1.sy + t * t * p2.sy,
+            };
+          }
+
+          var startTime = performance.now();
+          function renderScene(now) {
+            var elapsed = (now - startTime) * 0.001;
+            var targetRotY = pointerX * 0.3 + scrollProgress * 0.9 + Math.sin(elapsed * 0.28) * 0.1;
+            var targetRotX = pointerY * 0.18 - scrollProgress * 0.25 + 0.08;
+            var targetCamZ = 10.6 - scrollProgress * 1.8;
+
+            curRotY += (targetRotY - curRotY) * 0.07;
+            curRotX += (targetRotX - curRotX) * 0.07;
+            curCamZ += (targetCamZ - curCamZ) * 0.07;
+
+            ctx.fillStyle = '#141416';
+            ctx.fillRect(0, 0, width, height);
+
+            // Subtle architectural floor grid
+            ctx.strokeStyle = 'rgba(244, 242, 237, 0.05)';
+            ctx.lineWidth = 1;
+            for (var gx = -6; gx <= 6; gx += 1.5) {
+              var gStart = project(gx, -3.1, -4.5, curRotY, curRotX, curCamZ);
+              var gEnd = project(gx, -3.1, 4.5, curRotY, curRotX, curCamZ);
+              ctx.beginPath();
+              ctx.moveTo(gStart.sx, gStart.sy);
+              ctx.lineTo(gEnd.sx, gEnd.sy);
+              ctx.stroke();
+            }
+            for (var gz = -4.5; gz <= 4.5; gz += 1.5) {
+              var zStart = project(-6, -3.1, gz, curRotY, curRotX, curCamZ);
+              var zEnd = project(6, -3.1, gz, curRotY, curRotX, curCamZ);
+              ctx.beginPath();
+              ctx.moveTo(zStart.sx, zStart.sy);
+              ctx.lineTo(zEnd.sx, zEnd.sy);
+              ctx.stroke();
+            }
+
+            // Project nodes with gentle vertical oscillation
+            var projected = nodes.map(function (n, idx) {
+              var ny = n.y + Math.sin(elapsed * 1.15 + idx * 0.9) * 0.08;
+              var p = project(n.x, ny, n.z, curRotY, curRotX, curCamZ);
+              return {
+                sx: p.sx,
+                sy: p.sy,
+                scale: p.scale,
+                depth: p.depth,
+                x: n.x,
+                y: ny,
+                z: n.z,
+                nodeScale: n.scale,
+                primary: n.primary,
+                label: n.label,
+              };
+            });
+
+            // Draw spline workflow edges
+            var projectedEdges = edges.map(function (edge) {
+              var a = projected[edge.a];
+              var b = projected[edge.b];
+              var mx = (a.x + b.x) * 0.5;
+              var my = (a.y + b.y) * 0.5 + edge.bend * 0.55;
+              var mz = (a.z + b.z) * 0.5 + edge.bend;
+              var ctrl = project(mx, my, mz, curRotY, curRotX, curCamZ);
+
+              ctx.beginPath();
+              ctx.moveTo(a.sx, a.sy);
+              ctx.quadraticCurveTo(ctrl.sx, ctrl.sy, b.sx, b.sy);
+              ctx.strokeStyle = edge.accent ? 'rgba(232, 93, 38, 0.55)' : 'rgba(244, 242, 237, 0.22)';
+              ctx.lineWidth = edge.accent ? 2 : 1.25;
+              ctx.stroke();
+
+              return { a: a, ctrl: ctrl, b: b, accent: edge.accent };
+            });
+
+            // Draw traveling data packets along curves
+            for (var pIdx = 0; pIdx < pulses.length; pIdx++) {
+              var pulse = pulses[pIdx];
+              var pe = projectedEdges[pulse.edgeIndex];
+              var t = (pulse.offset + elapsed * pulse.speed) % 1;
+              var pt = quadPoint(pe.a, pe.ctrl, pe.b, t);
+
+              ctx.beginPath();
+              ctx.arc(pt.sx, pt.sy, pe.accent ? 3 : 2.2, 0, Math.PI * 2);
+              ctx.fillStyle = pe.accent ? '#E85D26' : '#F4F2ED';
+              ctx.fill();
+            }
+
+            // Sort back-to-front by depth and render composite nodes
+            var sorted = projected.slice().sort(function (u, v) { return v.depth - u.depth; });
+            for (var sIdx = 0; sIdx < sorted.length; sIdx++) {
+              var node = sorted[sIdx];
+              var radius = Math.max(12, Math.min(34, node.scale * 0.42 * node.nodeScale));
+
+              // Outer orbital ring
+              ctx.beginPath();
+              ctx.arc(node.sx, node.sy, radius * 1.38, 0, Math.PI * 2);
+              ctx.strokeStyle = node.primary ? 'rgba(232, 93, 38, 0.45)' : 'rgba(244, 242, 237, 0.18)';
+              ctx.lineWidth = 1.1;
+              ctx.stroke();
+
+              // Matte obsidian octagonal housing
+              ctx.beginPath();
+              for (var k = 0; k < 8; k++) {
+                var ang = (Math.PI / 4) * k + Math.PI / 8 + elapsed * 0.15;
+                var vx = node.sx + Math.cos(ang) * radius;
+                var vy = node.sy + Math.sin(ang) * radius;
+                if (k === 0) ctx.moveTo(vx, vy);
+                else ctx.lineTo(vx, vy);
+              }
+              ctx.closePath();
+              ctx.fillStyle = '#1C1C20';
+              ctx.fill();
+              ctx.strokeStyle = node.primary ? '#E85D26' : 'rgba(201, 198, 190, 0.65)';
+              ctx.lineWidth = node.primary ? 2 : 1.35;
+              ctx.stroke();
+
+              // Inner faceted core
+              ctx.beginPath();
+              ctx.arc(node.sx, node.sy, radius * 0.3, 0, Math.PI * 2);
+              ctx.fillStyle = node.primary ? '#E85D26' : '#C9C6BE';
+              ctx.fill();
+
+              // Crisp mono label below node
+              ctx.font = '500 9px "JetBrains Mono", monospace';
+              ctx.fillStyle = 'rgba(244, 242, 237, 0.62)';
+              ctx.textAlign = 'center';
+              ctx.fillText(node.label, node.sx, node.sy + radius * 1.38 + 13);
+            }
+
+            requestAnimationFrame(renderScene);
+          }
+
+          requestAnimationFrame(renderScene);
+        })();
+
+        // --- Hydrate from Express API if backend is running (retains bundled defaults otherwise) ---
+        function hydrateFromBackend() {
+          Promise.all([
+            fetch('/api/public/site', { credentials: 'same-origin' }).then(function (r) {
+              var ct = r.headers.get('content-type') || '';
+              if (!r.ok || ct.indexOf('application/json') === -1) throw new Error('no-api');
+              return r.json();
+            }),
+            fetch('/api/public/projects', { credentials: 'same-origin' }).then(function (r) {
+              var ct = r.headers.get('content-type') || '';
+              if (!r.ok || ct.indexOf('application/json') === -1) throw new Error('no-api');
+              return r.json();
+            }),
+          ])
+            .then(function (results) {
+              var siteData = results[0];
+              var projectData = results[1];
+              if (siteData && siteData.hero && siteData.about && siteData.contact && siteData.seo) {
+                state.content = siteData;
+                renderContent();
+              }
+              if (projectData && Array.isArray(projectData.projects)) {
+                state.projects = projectData.projects;
+                renderProjects();
+              }
+            })
+            .catch(function () {
+              // Static host or preview without backend: keep embedded defaults cleanly
+            });
+        }
+
+        // Initial synchronous render (guaranteed instant first paint)
+        renderContent();
+        renderProjects();
+        hydrateFromBackend();
+      })();
+    </script>
   </body>
 </html>

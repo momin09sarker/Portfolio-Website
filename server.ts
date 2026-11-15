@@ -20,32 +20,38 @@ async function bootstrap() {
   app.use(
     helmet({
       frameguard: false,
+      crossOriginOpenerPolicy: false,
+      crossOriginEmbedderPolicy: false,
+      crossOriginResourcePolicy: false,
+      originAgentCluster: false,
       contentSecurityPolicy: {
         directives: {
           defaultSrc: ["'self'"],
-          scriptSrc: isProd
-            ? ["'self'", "'unsafe-inline'"]
-            : ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+          scriptSrc: [
+            "'self'",
+            "'unsafe-inline'",
+            "'unsafe-eval'",
+            'https://cdn.tailwindcss.com',
+          ],
           styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
           fontSrc: ["'self'", 'https://fonts.gstatic.com', 'data:'],
-          imgSrc: ["'self'", 'data:', 'blob:'],
-          connectSrc: ["'self'", 'ws:', 'wss:'],
+          imgSrc: ["'self'", 'data:', 'blob:', 'https:'],
+          workerSrc: ["'self'", 'blob:'],
+          connectSrc: ["'self'", 'ws:', 'wss:', 'https:'],
           objectSrc: ["'none'"],
           baseUri: ["'self'"],
           formAction: ["'self'"],
-          frameAncestors: [
-            "'self'",
-            'https://aistudio.google.com',
-            'https://*.google.com',
-            'https://*.usercontent.goog',
-          ],
+          frameAncestors: ["'self'", 'https:', 'http://localhost:*', 'http://127.0.0.1:*'],
+          upgradeInsecureRequests: null,
         },
       },
-      hsts: {
-        maxAge: 31536000,
-        includeSubDomains: true,
-        preload: true,
-      },
+      hsts: isProd
+        ? {
+            maxAge: 31536000,
+            includeSubDomains: true,
+            preload: true,
+          }
+        : false,
       referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
     })
   );
@@ -69,7 +75,21 @@ async function bootstrap() {
     })
   );
 
-  // Serve generated portfolio image assets in both dev and production
+  // Serve static portfolio images from public/images and src/assets/images
+  const publicImagesPath = path.resolve(process.cwd(), 'public', 'images');
+  if (fs.existsSync(publicImagesPath)) {
+    app.use(
+      '/images',
+      express.static(publicImagesPath, {
+        maxAge: '365d',
+        immutable: true,
+        setHeaders: (res) => {
+          res.setHeader('X-Content-Type-Options', 'nosniff');
+        },
+      })
+    );
+  }
+
   const assetsImagesPath = path.resolve(process.cwd(), 'src', 'assets', 'images');
   if (fs.existsSync(assetsImagesPath)) {
     app.use(
@@ -116,6 +136,9 @@ async function bootstrap() {
     app.use(vite.middlewares);
   } else {
     const distPath = path.resolve(process.cwd(), 'dist');
+    app.get('/admin/', (_req, res) => {
+      res.redirect(301, '/admin');
+    });
     app.use(
       express.static(distPath, {
         maxAge: '7d',
