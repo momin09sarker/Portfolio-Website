@@ -57,7 +57,8 @@ Set `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM`, and `CONTAC
 3. Configure `JWT_SECRET` and `DATABASE_URL` in Vercel Project Environment Variables.
 
 ### Option C: GitHub Pages (Static Frontend Only)
-1. `vite.config.ts` uses `base: './'` for production builds so assets load cleanly under `https://<username>.github.io/<repo-name>/`.
-2. Enable **Settings → Pages → Source: GitHub Actions** in your repository; the included `.github/workflows/deploy.yml` builds `dist/`, creates `404.html`, and deploys automatically on push to `main`.
-3. Note: GitHub Pages serves static files only; dynamic `/admin` editing, SQLite storage, and server-side contact delivery require running the Express backend (Option A or B).
+1. Ensure all files—including `.github/workflows/deploy.yml`, `index.html`, `public/`, and `package-lock.json`—are committed and pushed to your `main` branch.
+2. In your GitHub repository, open **Settings → Pages → Build and deployment → Source** and choose **GitHub Actions** (using the included `.github/workflows/deploy.yml`, not GitHub's auto-generated Node/Next.js template).
+3. The included `.github/workflows/deploy.yml` runs on `ubuntu-24.04` with `actions/checkout@v6`, `actions/upload-pages-artifact@v4`, and `actions/deploy-pages@v4` to publish `index.html` and `public/` assets cleanly without a separate Node dependency install step.
+4. Note: GitHub Pages serves static files only; server-side `/api/contact` persistence requires running the Express backend (Option A or B).
 
